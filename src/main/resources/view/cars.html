@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<style type="text/css">
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+        border-color: #ccc;
+    }
+
+    .tg td {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        padding: 10px 5px;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        word-break: normal;
+        border-color: #ccc;
+        color: #333;
+        background-color: #fff;
+    }
+
+    .tg th {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        padding: 10px 5px;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        word-break: normal;
+        border-color: #ccc;
+        color: #333;
+        background-color: #f0f0f0;
+    }
+
+    .tg .tg-4eph {
+        background-color: #f9f9f9
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>cars</title>
+</head>
+<body>
+<h1>List of Cars</h1>
+<div th:if="${!listCars.isEmpty()}">
+    <table class="tg" border="3">
+        <tr>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Vehicle Type</th>
+            <th>Category</th>
+            <th>Registration Number</th>
+            <th>Year of Manufacture</th>
+            <th>Has Trailer</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <th:block th:each="car : ${listCars}">
+            <tr>
+                <td th:text="${car.id}"></td>
+                <td th:text="${car.brand}"></td>
+                <td th:text="${car.model}"></td>
+                <td th:text="${car.vehicleType}"></td>
+                <td th:text="${car.category.name}"></td>
+                <td th:text="${car.registrationNumber}"></td>
+                <td th:text="${car.yearOfManufacture}"></td>
+                <td th:text="${car.hasTrailer ? 'Yes' : 'No'}"></td>
+                <td><a th:href="@{/cars/edit/{id}(id=${car.id})}">Edit</a></td>
+                <td><a th:href="@{/cars/remove/{id}(id=${car.id})}">Delete</a></td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+    <br/>
+    <br/>
+    <div>
+        <h1>Add Car Form</h1>
+        <form class="tg" th:action="@{/cars/add}" th:object="${car}" method="post">
+            <p><input type="hidden" th:field="*{id}"/></p>
+            <p>Brand: <input type="text" th:field="*{brand}" required/></p>
+            <p>Model: <input type="text" th:field="*{model}" required/></p>
+            <p>Year of Manufacture: <input type="number" th:field="*{yearOfManufacture}" required/></p>
+            <p>Has Trailer: <input type="checkbox" th:field="*{hasTrailer}"/></p>
+            <p>Vehicle Type: <input type="text" th:field="*{vehicleType}" required/></p>
+            <p>Category: <input type="text" th:field="*{category.name}" required/></p>
+            <p>Registration Number: <input type="text" th:field="*{registrationNumber}" required/></p>
+            <p>
+                <input type="submit" value="Submit" />
+                <input type="reset" value="Reset" />
+            </p>
+        </form>
+    </div>
+
+    <br/>
+    <div>
+        <a href="/">index</a>
+    </div>
+</body>
+</html>
