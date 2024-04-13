@@ -45,5 +45,4 @@ public class ServletConfig extends AbstractAnnotationConfigDispatcherServletInit
                         new HiddenHttpMethodFilter())
                 .addMappingForUrlPatterns(null, true, "/*");
     }
-
 }
