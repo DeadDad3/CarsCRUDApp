@@ -26,14 +26,16 @@ public class CarController {
     }
 
     @PostMapping("/add")
-    public String addCar(@ModelAttribute Car car) {
-        if (car.getId() == 0) {
-            this.carService.add(car);
+    public String addCar(@ModelAttribute Car car, Model model) {
+        if (car != null && car.getId() != null) {
+            carService.update(car);
         } else {
-            this.carService.update(car);
+            carService.add(car);
         }
-        return "redirect:/cars";
+        model.addAttribute("cars", carService.getAll());
+        return "cars";
     }
+
 
     @GetMapping("/remove/{id}")
     public String removeCar(@PathVariable long id) {

@@ -46,7 +46,7 @@
 </head>
 <body>
 <h1>List of Cars</h1>
-<div th:if="${!listCars.isEmpty()}">
+<div th:if="${listCars != null and !listCars.isEmpty()}">
     <table class="tg" border="3">
         <tr>
             <th>ID</th>
@@ -66,7 +66,7 @@
                 <td th:text="${car.brand}"></td>
                 <td th:text="${car.model}"></td>
                 <td th:text="${car.vehicleType}"></td>
-                <td th:text="${car.category.name}"></td>
+                <td th:text="${car.category}"></td>
                 <td th:text="${car.registrationNumber}"></td>
                 <td th:text="${car.yearOfManufacture}"></td>
                 <td th:text="${car.hasTrailer ? 'Yes' : 'No'}"></td>
@@ -87,7 +87,7 @@
             <p>Year of Manufacture: <input type="number" th:field="*{yearOfManufacture}" required/></p>
             <p>Has Trailer: <input type="checkbox" th:field="*{hasTrailer}"/></p>
             <p>Vehicle Type: <input type="text" th:field="*{vehicleType}" required/></p>
-            <p>Category: <input type="text" th:field="*{category.name}" required/></p>
+            <p>Category: <input type="text" th:field="*{category}" required/></p>
             <p>Registration Number: <input type="text" th:field="*{registrationNumber}" required/></p>
             <p>
                 <input type="submit" value="Submit" />
